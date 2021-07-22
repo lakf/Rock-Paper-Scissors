@@ -1,5 +1,77 @@
 const x = 7
 
+const buttons = document.querySelectorAll('.buttons');
+var buttonsArray = Array.from(buttons);
+
+//Create a variable for round (use PlayerWins, ComputerWins)
+var playerWins = 0;
+var computerWins = 0;
+
+buttonsArray.forEach(button => {
+    //add an event listener to each button, waiting for a click 
+    button.addEventListener('click', ()=> {
+    //Make player selection (ps) into what the player has chosen 
+    var ps = button.textContent;
+    
+    //Create const for the results div 
+    const results = document.querySelector('#results');
+    
+    
+    
+console.log("player is " + ps);
+const cs = computerPlay();
+console.log("computer is " + cs);
+
+
+if (
+    //Player win 
+    //Cases where the player wins 
+    ps === "rock" && cs === "scissors" ||
+    ps === "scissors" && cs === "paper" ||
+    ps === "paper" && cs === "rock" ) {
+    //Update tally (playerWins increasing by 1)
+    playerWins = playerWins + 1;
+    //Win message 
+    results.textContent = "The Player has won this round! Player: " + playerWins + " Computer: " + computerWins;
+    console.log("The player has won this round");
+    //check if player has won
+    if (playerWins === 5){
+        results.textContent = "The Player is the first to reach 5 and has won";
+        console.log("The Player is the first to reach 5 and has won");
+    }
+
+    
+    } else if (
+    //Player loss
+    //Cases where the player loses
+    cs === "rock" && ps === "scissors" || 
+    cs === "scissors" && ps === "paper" || 
+    cs === "paper" && ps === "rock" ) {
+    //Update tally (computerWins increasing by 1)
+    computerWins = computerWins + 1;    
+    //Loss message 
+    results.textContent = "The Computer won this round! Player: " + playerWins + " Computer: " + computerWins;
+    console.log("The computer has won this round");
+    //check if the computer has won 
+    if (computerWins === 5){
+        results.textContent = "The Computer is the first to reach 5 and has won";
+        console.log("The Computer is the first to reach 5 and has won");
+    }
+
+
+    } else if (
+    //Player draw 
+    //Cases where the game is a draw
+    cs === "rock" && ps === "rock" ||
+    cs === "scissors" && ps === "scissors" ||
+    cs === "paper" && ps === "paper" ) {
+    //Draw message
+    results.textContent = "This round was a draw! Player: " + playerWins + " Computer: " + computerWins
+    console.log("This round was a draw");
+    };
+    })
+});
+
 //Function to give the computer selection
 computerPlay = () => {
 //The options that the computer can choose from
@@ -15,8 +87,6 @@ computerSelection = options[random];
 //console.log(computerSelection); 
 return computerSelection }
 
-//Setting a tally to count all of the results in the 5 round game
-var tallyOfWins = 0;
 
 //Function to play a single round of rock, paper scissors
 playRound = () => {
@@ -34,7 +104,7 @@ return playerSelectionLower; }
 return "incapable of selecting one of the 3 options"; } }
 
 //Show who has picked which selection
-const ps = getPlayerSelection();
+//const ps = getPlayerSelection();
 console.log("ps is " + ps);
 const cs = computerPlay();
 console.log("cs is " + cs);
